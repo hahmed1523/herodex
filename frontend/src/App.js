@@ -1,4 +1,4 @@
-import './App.css';
+import './styles/styles.js';
 import Header from './components/header';
 import HomePage from './pages/homePage';
 
