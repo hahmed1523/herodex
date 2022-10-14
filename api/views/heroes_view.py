@@ -7,7 +7,19 @@ from ..serializers.hero_serializer import HeroSerializer
 # Create your views here.
 
 @api_view(['GET'])
-def getRoutes(request):
-    heroes = Hero.objects.all()
-    serializer = HeroSerializer(heroes, many=True)
-    return Response(serializer.data)
+def getHeroes(request, pk=None):
+
+    # Handle GET request
+    if request.method == 'GET':
+
+        # Handle GET single Hero   
+        if pk:
+            hero = Hero.objects.get(id=pk)
+            serializer = HeroSerializer(hero, many=False)
+            return Response(serializer.data)
+
+        # Handle general GET
+        else:
+            heroes = Hero.objects.all()
+            serializer = HeroSerializer(heroes, many=True)
+            return Response(serializer.data)
