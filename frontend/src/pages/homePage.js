@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import HeroItem from '../components/heroItem';
 
 
@@ -19,6 +20,8 @@ const HomePage = () => {
     return (
         <div>
             <h2>Heroes</h2>
+
+            <Link to={'/hero/create'}>Add Hero</ Link>
 
             <ul className='hero-list'>
                 {
