@@ -53,5 +53,5 @@ def getHeroes(request, pk=None):
     if request.method == 'DELETE':
         hero = Hero.objects.get(id=pk)
         hero.delete()
-        return Response('Note as deleted')
+        return Response('Hero is deleted')
 

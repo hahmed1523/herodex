@@ -6,6 +6,7 @@ urlpatterns = [
     path('', view.getRoutes),
     path('heroes/', heroes_view.getHeroes, name='heroes'),
     path('heroes/<str:pk>/', heroes_view.getHeroes, name='hero'),
-    path('heroesfrom/', hero_from_view.getHeroFrom, name='heroesfrom')
+    path('heroesfrom/', hero_from_view.getHeroFrom, name='heroesfrom'),
+    path('heroesfrom/<str:pk>/', hero_from_view.getHeroFrom, name='herofrom')
     
 ]
