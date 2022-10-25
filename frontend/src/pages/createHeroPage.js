@@ -13,23 +13,23 @@ const CreateHeroPage = () => {
             <h2>Add a Hero</h2>
 
             <form className='hero-create'>
-                <label for="name">Name:</label>
+                <label htmlFor="name">Name:</label>
                 <input type='text' name='name'/>
 
-                <label for="description">Description:</label>
+                <label htmlFor="description">Description:</label>
                 <textarea name="description"></textarea>
 
-                <label for="famous_from">Famous From:</label> 
+                <label htmlFor="famous_from">Famous From:</label> 
                 <select name="famous_from">
                     <option>Option1</option>
                 </select>
 
-                <label for="move1">Primary Move:</label>
+                <label htmlFor="move1">Primary Move:</label>
                 <select name="move1">
                     <option>Option1</option>
                 </select>
 
-                <label for="move2">Primary Move:</label>
+                <label htmlFor="move2">Primary Move:</label>
                 <select name="move2">
                     <option>Option1</option>
                 </select>
