@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 const CreateHeroPage = () => {
 
+    const heroId = useParams().id;
+
     let [hero, setHero] = useState({
+        'id': null,
         'name': '',
         'description': '',
         'famous_from': null,
@@ -10,6 +14,21 @@ const CreateHeroPage = () => {
         'move2': null,
         'user': 1
     });
+
+    useEffect(() => {
+        if(heroId){
+            getHero();
+        }
+        
+    }, [heroId]);
+
+
+    const getHero = async () => {
+        const response = await fetch(`/api/heroes/${heroId}`);
+        const data = await response.json();
+        setHero(data);
+    };
+
 
     const update = field => {
         const name = field;
@@ -104,6 +123,7 @@ const CreateHeroPage = () => {
                 </select>
 
                 <input type='submit' value='Add'/>
+                {console.log(hero)}
             </form>
 
         </div>
