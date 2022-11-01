@@ -4,6 +4,7 @@ import Header from './components/header';
 import HomePage from './pages/homePage';
 import HeroPage from './pages/heroPage.js';
 import CreateHeroPage from './pages/createHeroPage.js';
+import UpdateHeroPage from './pages/updateHeroPage.js';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route path='/' element={<HomePage />} />
           <Route path='/hero/:id' element={<HeroPage/>} />
           <Route path='/hero/create' element={<CreateHeroPage />} />
+          <Route path='/hero/update/:id' element={<UpdateHeroPage />} />
         </Routes>
     </div>
   );

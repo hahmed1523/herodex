@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 const HeroPage = () => {
 
@@ -24,6 +24,9 @@ const HeroPage = () => {
             <p>Description: {hero?.description}</p>
             <p>Primary Move: {hero?.move1}</p>
             <p>Secondary Move: {hero?.move2}</p>
+
+            <Link to={`/hero/update/${hero?.id}`} className='btn'>Update</Link>
+            <button className='delete-btn'>Delete</button>
         </div>
     );
 };
