@@ -1,7 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 
 const HeroPage = () => {
+
+    let navigate = useNavigate();
 
     const heroId = useParams().id;
     
@@ -17,6 +19,21 @@ const HeroPage = () => {
         setHero(data);
     }
 
+    const handleDelete = async () => {
+        const response = await fetch(`/api/heroes/${heroId}/`,{
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+
+        });
+
+        const data = await response.json();
+
+        navigate('/')
+
+    }
+
     return(
         <div>
             <h2>{hero?.name}</h2>
@@ -26,7 +43,8 @@ const HeroPage = () => {
             <p>Secondary Move: {hero?.move2}</p>
 
             <Link to={`/hero/update/${hero?.id}`} className='btn'>Update</Link>
-            <button className='delete-btn'>Delete</button>
+            <button className='delete-btn' onClick={handleDelete}>Delete</button>
+
         </div>
     );
 };

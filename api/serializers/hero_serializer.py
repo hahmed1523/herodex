@@ -9,4 +9,4 @@ class HeroSerializer(ModelSerializer):
 
     class Meta:
         model = Hero 
-        fields = ['id', 'name', 'description', 'move1', 'move2', 'famous_from']
+        fields = ['id', 'name', 'description', 'move1', 'move2','move1_id','move2_id' , 'famous_from', 'famous_from_id']

@@ -9,9 +9,12 @@ const CreateHeroPage = () => {
         'id': null,
         'name': '',
         'description': '',
-        'famous_from': null,
-        'move1': null,
-        'move2': null,
+        'famous_from': '',
+        'famous_from_id': null,
+        'move1': '',
+        'move2': '',
+        'move1_id': null,
+        'move2_id': null,
         'user': 1
     });
 
@@ -40,15 +43,27 @@ const CreateHeroPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch('/api/heroes/',{
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(hero)
-        });
+        let response = null;
+        if (heroId){
+            response = await fetch(`/api/heroes/${heroId}/`,{
+                method: "PUT",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(hero)
+            });
+        } else{
+            response = await fetch('/api/heroes/',{
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(hero)
+            });
+        }
+
         const data = await response.json();
-        console.log(data);
+
     };
 
 
@@ -92,8 +107,8 @@ const CreateHeroPage = () => {
 
                 <label htmlFor="famous_from">Famous From:</label> 
                 <select name="famous_from" 
-                    defaultValue={"Select"}
-                    onChange={update('famous_from')}>
+                    defaultValue={hero.famous_from_id}
+                    onChange={update('famous_from_id')}>
                         <option disabled>Select</option>
                         {heroesFrom?.map(heroFrom => (
                             <option key={heroFrom.id} value={heroFrom.id}>{heroFrom.name}</option>
@@ -103,8 +118,8 @@ const CreateHeroPage = () => {
                 <label htmlFor="move1">Primary Move:</label>
                 <select 
                     name="move1" 
-                    defaultValue={"Select"}
-                    onChange={update('move1')}>
+                    defaultValue={hero.move1_id}
+                    onChange={update('move1_id')}>
                         <option disabled>Select</option>
                         {moves?.map(move => (
                             <option key={move.id} value={move.id}>{move.name}</option>
@@ -114,16 +129,16 @@ const CreateHeroPage = () => {
                 <label htmlFor="move2">Secondary Move:</label>
                 <select 
                     name="move2" 
-                    defaultValue={"Select"}
-                    onChange={update('move2')}>
+                    defaultValue={hero.move2_id}
+                    onChange={update('move2_id')}>
                         <option disabled>Select</option>
                         {moves?.map(move => (
                             <option key={move.id} value={move.id}>{move.name}</option>
                         ))}
                 </select>
 
-                <input type='submit' value='Add'/>
-                {console.log(hero)}
+                <input type='submit' value={heroId ? "Update" : "Add"}/>
+
             </form>
 
         </div>
