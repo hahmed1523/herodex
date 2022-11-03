@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 const CreateHeroPage = () => {
 
@@ -114,6 +114,8 @@ const CreateHeroPage = () => {
                             <option key={heroFrom.id} value={heroFrom.id}>{heroFrom.name}</option>
                         ))}
                 </select>
+                
+                <Link className="herofrom-link" to={'/herofrom/create'}>Add a new hero source..</Link>
                 
                 <label htmlFor="move1">Primary Move:</label>
                 <select 
