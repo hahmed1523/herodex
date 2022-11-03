@@ -4,7 +4,6 @@ import Header from './components/header';
 import HomePage from './pages/homePage';
 import HeroPage from './pages/heroPage.js';
 import CreateHeroPage from './pages/createHeroPage.js';
-import UpdateHeroPage from './pages/updateHeroPage.js';
 
 function App() {
   return (
