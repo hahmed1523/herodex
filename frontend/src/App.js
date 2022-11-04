@@ -5,6 +5,7 @@ import HomePage from './pages/homePage';
 import HeroPage from './pages/heroPage.js';
 import CreateHeroPage from './pages/createHeroPage.js';
 import CreateHeroFromPage from './pages/createHeroFromPage.js';
+import HeroesFromIndexPage from './pages/heroesFromIndexPage.js';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path='/hero/create' element={<CreateHeroPage />} />
           <Route path='/hero/update/:id' element={<CreateHeroPage />} />
           <Route path='/herofrom/create' element={<CreateHeroFromPage />} />
+          <Route path='/heroesfrom' element={<HeroesFromIndexPage />} />
 
         </Routes>
     </div>
