@@ -20,7 +20,7 @@ const HeroesFromIndexPage = () => {
         <div>
             <h2>Hero Sources</h2>
 
-            <Link to={'/hero/create'}>Add Hero Source</ Link>
+            <Link to={'/heroesfrom/create'}>Add Hero Source</ Link>
 
             <ul className='heroesfrom-list'>
                 {

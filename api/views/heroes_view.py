@@ -40,12 +40,13 @@ def getHeroes(request, pk=None):
         data = request.data 
         hero = Hero.objects.create(
             name=data['name'],
-            famous_from_id=data['famous_from'],
+            famous_from_id=data['famous_from_id'],
             description=data['description'],
-            move1_id=data['move1'], 
-            move2_id=data['move2'],
+            move1_id=data['move1_id'], 
+            move2_id=data['move2_id'],
             user_id=data['user']
         )
+
         serializer = HeroSerializer(hero, many=False)
         return Response(serializer.data)
     

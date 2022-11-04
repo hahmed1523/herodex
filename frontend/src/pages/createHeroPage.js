@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 
 const CreateHeroPage = () => {
+
+    let navigate = useNavigate();
 
     const heroId = useParams().id;
 
     let [hero, setHero] = useState({
-        'id': null,
+        // 'id': null,
         'name': '',
         'description': '',
         'famous_from': '',
-        'famous_from_id': null,
+        'famous_from_id': '',
         'move1': '',
         'move2': '',
-        'move1_id': null,
-        'move2_id': null,
+        'move1_id': '',
+        'move2_id': '',
         'user': 1
     });
 
@@ -42,6 +44,7 @@ const CreateHeroPage = () => {
     };
 
     const handleSubmit = async (e) => {
+
         e.preventDefault();
         let response = null;
         if (heroId){
@@ -63,6 +66,8 @@ const CreateHeroPage = () => {
         }
 
         const data = await response.json();
+        navigate('/');
+
 
     };
 
@@ -90,6 +95,7 @@ const CreateHeroPage = () => {
 
     return (
         <div>
+            {console.log(hero)}
             <h2>Add a Hero</h2>
 
             <form className='hero-create'
@@ -107,22 +113,22 @@ const CreateHeroPage = () => {
 
                 <label htmlFor="famous_from">Famous From:</label> 
                 <select name="famous_from" 
-                    defaultValue={hero.famous_from_id}
+                    value={hero.famous_from_id}
                     onChange={update('famous_from_id')}>
-                        <option disabled>Select</option>
+                        <option>Select</option>
                         {heroesFrom?.map(heroFrom => (
                             <option key={heroFrom.id} value={heroFrom.id}>{heroFrom.name}</option>
                         ))}
                 </select>
                 
-                <Link className="herofrom-link" to={'/herofrom/create'}>Add a new hero source..</Link>
+                <Link className="herofrom-link" to={'/heroesfrom/create'}>Add a new hero source..</Link>
                 
                 <label htmlFor="move1">Primary Move:</label>
                 <select 
                     name="move1" 
-                    defaultValue={hero.move1_id}
+                    value={hero.move1_id}
                     onChange={update('move1_id')}>
-                        <option disabled>Select</option>
+                        <option>Select</option>
                         {moves?.map(move => (
                             <option key={move.id} value={move.id}>{move.name}</option>
                         ))}
@@ -131,11 +137,13 @@ const CreateHeroPage = () => {
                 <label htmlFor="move2">Secondary Move:</label>
                 <select 
                     name="move2" 
-                    defaultValue={hero.move2_id}
+                    value={hero.move2_id}
                     onChange={update('move2_id')}>
-                        <option disabled>Select</option>
+                        <option>Select</option>
                         {moves?.map(move => (
-                            <option key={move.id} value={move.id}>{move.name}</option>
+                            <option key={move.id} 
+                                    value={move.id}
+                                    >{move.name}</option>
                         ))}
                 </select>
 

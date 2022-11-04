@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const SourceItem = ({source}) => {
     return (
         <li>
-            <Link to={`/hero/${source.id}`}>
+            <Link to={`/heroesfrom/${source.id}`}>
                 <p>{ source.name }</p>
             </Link>
             <p>Origin Date: { source.origin_date }</p>

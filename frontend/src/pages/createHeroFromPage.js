@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const CreateHeroFromPage = () => {
+
+    const navigate = useNavigate();
 
     const heroFromId = useParams().id;
 
@@ -58,7 +60,7 @@ const CreateHeroFromPage = () => {
         }
 
         const data = await response.json();
-        console.log(data);
+        navigate(-1);
 
     };
 
