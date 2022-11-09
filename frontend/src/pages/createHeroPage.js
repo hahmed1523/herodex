@@ -12,11 +12,8 @@ const CreateHeroPage = () => {
         'name': '',
         'description': '',
         'famous_from': '',
-        'famous_from_id': '',
         'move1': '',
         'move2': '',
-        'move1_id': '',
-        'move2_id': '',
         'user': 1
     });
 
@@ -101,6 +98,8 @@ const CreateHeroPage = () => {
 
     return (
         <div>
+            {console.log(hero)}
+
             {errors ? <ul className='errors'>{Object.entries(errors).map((entry, idx) => {
                 return(
                     <li key={idx}>{entry[0]}: {entry[1]}</li>
@@ -124,8 +123,8 @@ const CreateHeroPage = () => {
 
                 <label htmlFor="famous_from">Famous From:</label> 
                 <select name="famous_from" 
-                    value={hero.famous_from_id}
-                    onChange={update('famous_from_id')}>
+                    value={hero.famous_from}
+                    onChange={update('famous_from')}>
                         <option>Select</option>
                         {heroesFrom?.map(heroFrom => (
                             <option key={heroFrom.id} value={heroFrom.id}>{heroFrom.name}</option>
@@ -137,8 +136,8 @@ const CreateHeroPage = () => {
                 <label htmlFor="move1">Primary Move:</label>
                 <select 
                     name="move1" 
-                    value={hero.move1_id}
-                    onChange={update('move1_id')}>
+                    value={hero.move1}
+                    onChange={update('move1')}>
                         <option>Select</option>
                         {moves?.map(move => (
                             <option key={move.id} value={move.id}>{move.name}</option>
@@ -148,8 +147,8 @@ const CreateHeroPage = () => {
                 <label htmlFor="move2">Secondary Move:</label>
                 <select 
                     name="move2" 
-                    value={hero.move2_id}
-                    onChange={update('move2_id')}>
+                    value={hero.move2}
+                    onChange={update('move2')}>
                         <option>Select</option>
                         {moves?.map(move => (
                             <option key={move.id} 

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.response import Response 
 from rest_framework.decorators import api_view
 from ..models.hero_model import Hero
-from ..serializers.hero_serializer import HeroSerializer
+from ..serializers.hero_serializer import HeroSerializer, HeroSerializerCreate
 
 # Create your views here.
 
@@ -38,22 +38,12 @@ def getHeroes(request, pk=None):
     # Handle POST request
     if request.method == 'POST':
         data = request.data 
-        # hero = Hero.objects.create(
-        #     name=data['name'],
-        #     famous_from_id=data['famous_from_id'],
-        #     description=data['description'],
-        #     move1_id=data['move1_id'], 
-        #     move2_id=data['move2_id'],
-        #     user_id=data['user']
-        # )
-
-        serializer = HeroSerializer(data = data, many=False)
+        serializer = HeroSerializerCreate(data = data, many=False)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         else:
             return Response(serializer.errors, status=400)
-        
         
     
     # Handle DELETE request
