@@ -9,20 +9,22 @@ class Hero(models.Model):
         HeroFrom,
         on_delete=models.SET_NULL,
         related_name='heroes',
-        null=True
+        null=True,
     )
     description = models.TextField(null=True, blank=True)
     move1 = models.ForeignKey(
         Move,
         on_delete=models.SET_NULL,
         related_name='heroes_prim',
-        null=True
+        null=True,
+        blank=True
     )
     move2 = models.ForeignKey(
         Move,
         on_delete=models.SET_NULL,
         related_name='heroes_second',
-        null=True
+        null=True,
+        blank=True
     )
     user = models.ForeignKey(
         User,

@@ -1,4 +1,5 @@
 from rest_framework.serializers import ModelSerializer, SlugRelatedField
+from rest_framework import serializers 
 from ..models.hero_model import Hero
 
 
@@ -10,3 +11,4 @@ class HeroSerializer(ModelSerializer):
     class Meta:
         model = Hero 
         fields = ['id', 'name', 'description', 'move1', 'move2','move1_id','move2_id' , 'famous_from', 'famous_from_id']
+    

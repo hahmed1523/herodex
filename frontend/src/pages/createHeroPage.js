@@ -20,6 +20,8 @@ const CreateHeroPage = () => {
         'user': 1
     });
 
+    let [errors, setErrors] = useState([]);
+
     useEffect(() => {
         if(heroId){
             getHero();
@@ -66,9 +68,13 @@ const CreateHeroPage = () => {
         }
 
         const data = await response.json();
-        navigate('/');
 
+        if(response.status !== 200){
+            setErrors(data);
 
+        } else {
+            navigate('/');
+        }
     };
 
 
@@ -95,7 +101,12 @@ const CreateHeroPage = () => {
 
     return (
         <div>
-            {console.log(hero)}
+            {errors ? <ul className='errors'>{Object.entries(errors).map((entry, idx) => {
+                return(
+                    <li key={idx}>{entry[0]}: {entry[1]}</li>
+                )
+            })}</ul> : null }
+
             <h2>Add a Hero</h2>
 
             <form className='hero-create'
