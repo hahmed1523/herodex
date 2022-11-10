@@ -28,7 +28,7 @@ def getHeroes(request, pk=None):
     if request.method == 'PUT':
         data = request.data 
         hero = Hero.objects.get(id=pk)
-        serializer = HeroSerializer(instance=hero, data=data)
+        serializer = HeroSerializerCreate(instance=hero, data=data)
 
         if serializer.is_valid():
             serializer.save()

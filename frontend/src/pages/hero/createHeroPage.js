@@ -11,8 +11,11 @@ const CreateHeroPage = () => {
         // 'id': null,
         'name': '',
         'description': '',
+        'famous_from_id':'',
         'famous_from': '',
+        'move1_id':'',
         'move1': '',
+        'move2_id':'',
         'move2': '',
         'user': 1
     });
@@ -30,7 +33,15 @@ const CreateHeroPage = () => {
     const getHero = async () => {
         const response = await fetch(`/api/heroes/${heroId}`);
         const data = await response.json();
+        data.move1 = data.move1_id;
+        delete data['move1_id'];
+        data.move2 = data.move2_id;
+        delete data['move2_id'];
+        data.famous_from = data.famous_from_id;
+        delete data['famous_from_id'];
+
         setHero(data);
+        
     };
 
 
@@ -98,7 +109,7 @@ const CreateHeroPage = () => {
 
     return (
         <div>
-
+            {console.log(hero)}
             {errors ? <ul className='errors'>{Object.entries(errors).map((entry, idx) => {
                 return(
                     <li key={idx}>{entry[0].charAt(0).toUpperCase() + entry[0].slice(1)}: {entry[1]}</li>
