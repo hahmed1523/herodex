@@ -10,10 +10,12 @@ const CreateHeroFromPage = () => {
     let [herofrom, setHeroFrom] = useState({
         'id': null,
         'name': '',
-        'origin_date': '',
+        'origin_date': null,
         'created_by': '',
         'user': 1
     });
+
+    let [errors, setErrors] = useState([]);
 
     useEffect(() => {
         if(heroFromId){
@@ -31,10 +33,20 @@ const CreateHeroFromPage = () => {
 
     const update = field => {
         const name = field;
-        return e => setHeroFrom({
-            ...herofrom,
-            [name]: e.target.value
-        })
+
+        return e => {
+            if (name === 'origin_date' && e.target.value === ''){
+                setHeroFrom({
+                    ...herofrom,
+                    [name]: null
+                })
+            } else {
+                setHeroFrom({
+                    ...herofrom,
+                    [name]: e.target.value
+                })
+            }
+            }
     };
 
 
@@ -60,12 +72,24 @@ const CreateHeroFromPage = () => {
         }
 
         const data = await response.json();
-        navigate(-1);
+
+        if(response.status !== 200){
+            setErrors(data);
+
+        } else {
+            navigate(-1);
+        }
 
     };
 
     return (
         <div>
+            {errors ? <ul className='errors'>{Object.entries(errors).map((entry, idx) => {
+                return(
+                    <li key={idx}>{entry[0].charAt(0).toUpperCase() + entry[0].slice(1)}: {entry[1]}</li>
+                )
+            })}</ul> : null }
+
             <h1>Add A New Hero Source</h1>
 
             <form className='herofrom-create'
@@ -80,7 +104,7 @@ const CreateHeroFromPage = () => {
                 <label htmlFor="origin_date">Origin Date:</label>
                 <input type='date' 
                     name='origin_date' 
-                    value={herofrom.origin_date}
+                    value={herofrom.origin_date ? herofrom.origin_date : ''}
                     onChange={update('origin_date')}/>
 
                 <label htmlFor="created_by">Created By:</label>

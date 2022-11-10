@@ -22,15 +22,16 @@ def getHeroFrom(request, pk=None):
     # Handle POST request
     elif request.method == 'POST':
         data = request.data
-        heroFrom = HeroFrom.objects.create(
-            name = data['name'],
-            origin_date = data['origin_date'],
-            created_by = data['created_by'],
-            user_id = data['user']
-        )
-
-        serializer = HeroFromSerializer(heroFrom, many=False)
-        return Response(serializer.data)
+        serializer = HeroFromSerializer(data = data, many=False)
+        print(data)
+        print(serializer.is_valid())
+        print(serializer.errors)
+        
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors, status=400)
     
     # Handle PUT request
     elif request.method == 'PUT':
@@ -40,8 +41,9 @@ def getHeroFrom(request, pk=None):
 
         if serializer.is_valid():
             serializer.save()
-        
-        return Response(serializer.data)
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors, status=400)
     
     # Handle DELETE request
     if request.method == 'DELETE':

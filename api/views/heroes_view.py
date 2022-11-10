@@ -32,8 +32,9 @@ def getHeroes(request, pk=None):
 
         if serializer.is_valid():
             serializer.save()
-        
-        return Response(serializer.data)
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors, status=400)
 
     # Handle POST request
     if request.method == 'POST':
