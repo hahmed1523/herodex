@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import SourceItem from '../components/heroesFromItem';
+import SourceItem from '../../components/heroesFromItem';
 
 const HeroesFromIndexPage = () => {
 
