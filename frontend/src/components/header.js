@@ -10,7 +10,7 @@ const Header = () => {
 
             <nav>
                 <Link to='/heroesfrom'>Hero Sources</Link>
-                <Link>Move List</Link>
+                <Link to='/moves'>Move List</Link>
             </nav>
         </header>
     );

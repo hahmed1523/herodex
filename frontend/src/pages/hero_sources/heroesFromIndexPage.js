@@ -24,7 +24,7 @@ const HeroesFromIndexPage = () => {
 
             <ul className='heroesfrom-list'>
                 {
-                    heroesfrom.map((source, index) => (
+                    heroesfrom?.map((source, index) => (
                         <SourceItem key={index} source={source} />
                     ))
                 }

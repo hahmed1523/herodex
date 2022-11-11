@@ -109,7 +109,7 @@ const CreateHeroPage = () => {
 
     return (
         <div>
-            {console.log(hero)}
+            
             {errors ? <ul className='errors'>{Object.entries(errors).map((entry, idx) => {
                 return(
                     <li key={idx}>{entry[0].charAt(0).toUpperCase() + entry[0].slice(1)}: {entry[1]}</li>

@@ -7,6 +7,7 @@ import CreateHeroPage from './pages/hero/createHeroPage.js';
 import CreateHeroFromPage from './pages/hero_sources/createHeroFromPage.js';
 import HeroesFromIndexPage from './pages/hero_sources/heroesFromIndexPage.js';
 import HeroesFromPage from './pages/hero_sources/heroesFromPage.js';
+import MovesIndexPage from './pages/moves/movesIndex.js';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path='/heroesfrom/:id' element={<HeroesFromPage />} />
           <Route path='/heroesfrom/create' element={<CreateHeroFromPage />} />
           <Route path='/heroesfrom/update/:id' element={<CreateHeroFromPage />} />
+          <Route path='/moves' element={<MovesIndexPage />} />
 
 
         </Routes>
