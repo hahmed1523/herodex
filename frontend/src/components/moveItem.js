@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const MoveItem = ({move}) => {
     return (
         <li>
-            <Link >
+            <Link to={`/moves/${move.id}`}>
                 <p>{ move.name }</p>
             </Link>
         </li>
