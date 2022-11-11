@@ -38,7 +38,7 @@ const MovePage = () => {
 
             <h2>{move?.name}</h2>
 
-            <Link className='btn'>Update</Link>
+            <Link to={`/moves/update/${move.id}`} className='btn'>Update</Link>
             <button className='delete-btn' onClick={handleDelete}>Delete</button>
             
 

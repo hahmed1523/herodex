@@ -19,7 +19,7 @@ const MovesIndexPage = () => {
         <div>
             <h2>Moves List</h2>
 
-            <Link>Add Move</ Link>
+            <Link to='/moves/create'>Add Move</ Link>
 
             <ul className='moves-list'>
                 {

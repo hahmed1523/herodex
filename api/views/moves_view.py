@@ -18,13 +18,13 @@ class MovesView(APIView):
     
     def post(self, request, format=None):
         data = request.data
-        move= Move.objects.create(
-            name = data['name'],
-            user_id = data['user']
-        )
 
-        serializer = MoveSerializer(move, many=False)
-        return Response(serializer.data)
+        serializer = MoveSerializer(data = data, many=False)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors)
     
     def put(self, request, pk, format=None):
         data = request.data 
@@ -33,8 +33,9 @@ class MovesView(APIView):
 
         if serializer.is_valid():
             serializer.save()
-        
-        return Response(serializer.data)
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors)
     
     def delete(self, request, pk, format=None):
         move = Move.objects.get(id=pk)
