@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
+import Comment from '../../components/comments';
 
 const HeroPage = () => {
 
@@ -8,6 +9,7 @@ const HeroPage = () => {
     const heroId = useParams().id;
     
     let [hero, setHero] = useState([]);
+    let [comments, setComments] = useState([]);
 
     useEffect(() => {
         getHero();
@@ -17,6 +19,16 @@ const HeroPage = () => {
         const response = await fetch(`/api/heroes/${heroId}`);
         const data = await response.json();
         setHero(data);
+    }
+
+    useEffect(() => {
+        getComments();
+    }, [])
+
+    const getComments = async () => {
+        const response = await fetch(`/api/heroes/${heroId}/comments`);
+        const data = await response.json();
+        setComments(data);
     }
 
     const handleDelete = async () => {
@@ -45,6 +57,12 @@ const HeroPage = () => {
             <Link to={`/hero/update/${hero?.id}`} className='btn'>Update</Link>
             <button className='delete-btn' onClick={handleDelete}>Delete</button>
 
+            <h3>Comments</h3>
+            {comments?.map((comment, idx)=>{
+                return(
+                    <Comment key={idx} comment={comment} />
+                )
+            })}
         </div>
     );
 };
