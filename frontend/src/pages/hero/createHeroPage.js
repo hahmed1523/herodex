@@ -167,6 +167,8 @@ const CreateHeroPage = () => {
                         ))}
                 </select>
 
+                <Link className="moves-link" to={'/moves/create'}>Add a new move..</Link>
+
                 <input type='submit' value={heroId ? "Update" : "Add"}/>
 
             </form>
