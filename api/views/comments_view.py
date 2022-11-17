@@ -11,6 +11,7 @@ class CommentsView(APIView):
             serializer = CommentSerializer(comment, many=False)
             return Response(serializer.data)
         if hero_id:
+            # Get all the comments of a specific hero
             comments = Comment.objects.filter(hero=hero_id)
             serializer = CommentSerializer(comments, many=True)
             return Response(serializer.data)
@@ -20,15 +21,16 @@ class CommentsView(APIView):
             serializer = CommentSerializer(comments, many=True)
             return Response(serializer.data)
     
-    # def post(self, request, format=None):
-    #     data = request.data
+    def post(self, request, format=None):
+        data = request.data
 
-    #     serializer = MoveSerializer(data = data, many=False)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response(serializer.data)
-    #     else:
-    #         return Response(serializer.errors)
+        serializer = CommentSerializer(data = data, many=False)
+        print(serializer)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors)
     
     # def put(self, request, pk, format=None):
     #     data = request.data 
