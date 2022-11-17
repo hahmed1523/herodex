@@ -28,6 +28,8 @@ const CommentIndexPage = ({heroId}) => {
                     <Comment key={idx} comment={comment} />
                 )
             })}
+
+            
         </div>
     )
 };

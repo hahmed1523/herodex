@@ -41,7 +41,7 @@ const CreateCommentsPage = ({heroId}) => {
             setErrors(data);
 
         } else {
-            //navigate('/');
+            // navigate(`/hero/${heroId.toString()}`);
         }
     }
 
@@ -63,7 +63,7 @@ const CreateCommentsPage = ({heroId}) => {
                     ></textarea>
                 <input type='submit' value='Add'/>
             </form>
-            {console.log(comment)}
+            
         </div>
     )
 };
