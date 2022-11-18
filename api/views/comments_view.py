@@ -32,18 +32,19 @@ class CommentsView(APIView):
         else:
             return Response(serializer.errors)
     
-    # def put(self, request, pk, format=None):
-    #     data = request.data 
-    #     move= Move.objects.get(id=pk)
-    #     serializer = MoveSerializer(instance=move, data=data)
+    def put(self, request, pk, format=None):
+        data = request.data 
+        comment= Comment.objects.get(id=pk)
+        serializer = CommentSerializer(instance=comment, data=data)
+        print(serializer)
 
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response(serializer.data)
-    #     else:
-    #         return Response(serializer.errors)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors, status=400)
     
-    # def delete(self, request, pk, format=None):
-    #     move = Move.objects.get(id=pk)
-    #     move.delete()
-    #     return Response('Move is deleted')
+    def delete(self, request, pk, format=None):
+        comment = Comment.objects.get(id=pk)
+        comment.delete()
+        return Response('Move is deleted')

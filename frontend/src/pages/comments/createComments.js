@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 
-const CreateCommentsPage = ({heroId}) => {
+const CreateCommentsPage = ({heroId, setComments, comments}) => {
     let navigate = useNavigate();
 
     const commentId = useParams().comment_id;
@@ -13,6 +13,21 @@ const CreateCommentsPage = ({heroId}) => {
     });
 
     let [errors, setErrors] = useState([]);
+
+    useEffect(() => {
+        if(commentId){
+            getComment();
+        }
+        
+    }, [commentId]);
+
+    const getComment = async () => {
+        const response = await fetch(`/api/comments/${commentId}`);
+        const data = await response.json();
+
+        setComment(data);
+        
+    };
 
     const update = field => {
         const name = field;
@@ -26,24 +41,41 @@ const CreateCommentsPage = ({heroId}) => {
 
         e.preventDefault();
         let response = null;
-        
-        response = await fetch('/api/comments/',{
-            method: "POST",
-            headers: {
-            'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(comment)
-        });
 
+        if (commentId){
+            response = await fetch(`/api/comments/${commentId}/`,{
+                method: "PUT",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(comment)
+            });
+        } else {
+            response = await fetch('/api/comments/',{
+                method: "POST",
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(comment)
+            });
+        }
+        
         const data = await response.json();
 
         if(response.status !== 200){
             setErrors(data);
 
         } else {
-            // navigate(`/hero/${heroId.toString()}`);
-        }
-    }
+            if (commentId){
+                navigate(-1);
+            }else {
+                setComments([
+                    data,
+                    ...comments
+                ]);
+            }
+        };
+    };
 
     return(
         <div>

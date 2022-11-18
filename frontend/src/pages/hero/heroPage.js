@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link, useNavigate, Routes, Route } from 'react-router-dom';
 import CommentIndexPage from '../comments/commentsIndex';
+import CreateCommentsPage from '../comments/createComments';
 
 const HeroPage = () => {
 
@@ -46,7 +47,7 @@ const HeroPage = () => {
 
             <Link to={`/hero/update/${hero?.id}`} className='btn'>Update</Link>
             <button className='delete-btn' onClick={handleDelete}>Delete</button>
-
+            
             <CommentIndexPage heroId={heroId} />
 
         </div>

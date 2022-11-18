@@ -10,6 +10,8 @@ import HeroesFromPage from './pages/hero_sources/heroesFromPage.js';
 import MovesIndexPage from './pages/moves/movesIndex.js';
 import MovePage from './pages/moves/movePage.js';
 import CreateMovePage from './pages/moves/createMove.js';
+import CreateCommentsPage from './pages/comments/createComments.js';
+import UpdateCommentsPage from './pages/comments/updateComment.js';
 
 function App() {
   return (
@@ -28,6 +30,8 @@ function App() {
           <Route path='/moves/:id' element={<MovePage />} />
           <Route path='/moves/create' element={<CreateMovePage />} />
           <Route path='/moves/update/:id' element={<CreateMovePage />} />
+          <Route path='/comments/update/:comment_id' element={<CreateCommentsPage />} />
+          
 
 
         </Routes>

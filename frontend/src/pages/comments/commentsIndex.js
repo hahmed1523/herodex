@@ -20,12 +20,12 @@ const CommentIndexPage = ({heroId}) => {
     return(
         <div className='comments-section'>
 
-            <CreateCommentsPage heroId={heroId} />
+            <CreateCommentsPage heroId={heroId} setComments={setComments} comments={comments}/>
 
             <h3>Comments</h3>
             {comments?.map((comment, idx)=>{
                 return(
-                    <Comment key={idx} comment={comment} />
+                    <Comment key={idx} comment={comment} setComments={setComments} />
                 )
             })}
 
