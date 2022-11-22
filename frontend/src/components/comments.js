@@ -1,7 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Comment = ({comment, setComments}) => {
+
+    const navigate = useNavigate();
 
     const formatDate = com_date => {
         const date = new Date(com_date);
@@ -9,28 +11,15 @@ const Comment = ({comment, setComments}) => {
 
     };
 
-    const handleDelete = async () => {
-        const response = await fetch(`/api/comments/${comment.id}/`,{
-            method: "DELETE",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-
-        });
-
-        const data = await response.json();
-
-        navigate('/')
-
-    }
-
     return (
         <li>
             <p>{ comment.body }</p>
             <p>{ comment.username }</p>
             <p>{ formatDate(comment.updated_date) }</p>
             <Link to={`/comments/update/${comment.id}`}>Update</Link>
-            <button className='btn delete-btn'>Delete</button>
+
+            <Link className='delete-btn' to={`/comments/delete/${comment.id}`}>Delete</Link>
+            
         </li>
     );
 };

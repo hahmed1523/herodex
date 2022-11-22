@@ -73,9 +73,19 @@ const CreateCommentsPage = ({heroId, setComments, comments}) => {
                     data,
                     ...comments
                 ]);
+
+                setComment({
+                    ...comment,
+                    'body': '',
+                });
             }
         };
     };
+
+    const handleBack = () => {
+
+        navigate(-1);
+    } 
 
     return(
         <div>
@@ -93,8 +103,13 @@ const CreateCommentsPage = ({heroId, setComments, comments}) => {
                     value={comment.body}
                     onChange={update('body')}
                     ></textarea>
-                <input type='submit' value='Add'/>
+                <input type='submit' value={commentId ? 'Update' : 'Add'}/>             
             </form>
+
+            {commentId ? <button className='btn' onClick={handleBack}>Back</button> :
+                            null }  
+
+
             
         </div>
     )
