@@ -25,7 +25,6 @@ class CommentsView(APIView):
         data = request.data
 
         serializer = CommentSerializer(data = data, many=False)
-        print(serializer)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -36,7 +35,7 @@ class CommentsView(APIView):
         data = request.data 
         comment= Comment.objects.get(id=pk)
         serializer = CommentSerializer(instance=comment, data=data)
-        print(serializer)
+
 
         if serializer.is_valid():
             serializer.save()
