@@ -20,3 +20,6 @@ class HeroLike(models.Model):
 
     class Meta:
         unique_together = ['user', 'hero']
+
+    def __str__(self):
+        return f'{self.hero.name} like'
