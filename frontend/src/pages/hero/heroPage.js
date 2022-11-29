@@ -40,6 +40,7 @@ const HeroPage = () => {
     return(
         <div>
             <h2>{hero?.name}</h2>
+            <p>Likes: {hero?.likes}</p>
             <p>Famous From: {hero?.famous_from}</p>
             <p>Description: {hero?.description}</p>
             <p>Primary Move: {hero?.move1}</p>
