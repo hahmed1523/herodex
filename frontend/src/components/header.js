@@ -9,8 +9,14 @@ const Header = () => {
             </Link>
 
             <nav>
-                <Link to='/heroesfrom'>Hero Sources</Link>
-                <Link to='/moves'>Move List</Link>
+                <section className='links-section'>
+                    <Link to='/heroesfrom'>Hero Sources</Link>
+                    <Link to='/moves'>Move List</Link>
+                </section>
+
+                <section className='login-section'>
+                    <Link to='/login'>Login</Link>
+                </section>
             </nav>
         </header>
     );

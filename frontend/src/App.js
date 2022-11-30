@@ -12,6 +12,8 @@ import MovePage from './pages/moves/movePage.js';
 import CreateMovePage from './pages/moves/createMove.js';
 import CreateCommentsPage from './pages/comments/createComments.js';
 import DeleteCommentPage from './pages/comments/deleteComment.js';
+import LoginPage from './pages/login_reg/login.js';
+import PrivateRoutes from './utils/private_routes.js';
 
 function App() {
   return (
@@ -19,19 +21,24 @@ function App() {
         <Header />
         <Routes>
           <Route path='/' element={<HomePage />} />
+          <Route path='/login' element={<LoginPage />} />
           <Route path='/hero/:id' element={<HeroPage/>} />
-          <Route path='/hero/create' element={<CreateHeroPage />} />
-          <Route path='/hero/update/:id' element={<CreateHeroPage />} />
           <Route path='/heroesfrom' element={<HeroesFromIndexPage />} />
           <Route path='/heroesfrom/:id' element={<HeroesFromPage />} />
-          <Route path='/heroesfrom/create' element={<CreateHeroFromPage />} />
-          <Route path='/heroesfrom/update/:id' element={<CreateHeroFromPage />} />
           <Route path='/moves' element={<MovesIndexPage />} />
           <Route path='/moves/:id' element={<MovePage />} />
-          <Route path='/moves/create' element={<CreateMovePage />} />
-          <Route path='/moves/update/:id' element={<CreateMovePage />} />
-          <Route path='/comments/update/:comment_id' element={<CreateCommentsPage />} />
-          <Route path='/comments/delete/:comment_id' element={<DeleteCommentPage />} />
+          
+          <Route element={<PrivateRoutes />}>
+            <Route path='/hero/create' element={<CreateHeroPage />} />
+            <Route path='/hero/update/:id' element={<CreateHeroPage />} />
+            <Route path='/heroesfrom/create' element={<CreateHeroFromPage />} />
+            <Route path='/heroesfrom/update/:id' element={<CreateHeroFromPage />} />
+            <Route path='/moves/create' element={<CreateMovePage />} />
+            <Route path='/moves/update/:id' element={<CreateMovePage />} />
+            <Route path='/comments/update/:comment_id' element={<CreateCommentsPage />} />
+            <Route path='/comments/delete/:comment_id' element={<DeleteCommentPage />} />
+          </Route>
+          
 
         </Routes>
     </div>
