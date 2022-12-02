@@ -1,8 +1,11 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Link } from 'react-router-dom';
+import AuthContext from '../context/auth_context';
 
 
 const Header = () => {
+
+    let {user, logoutUser} = useContext(AuthContext);
 
     return (
         <header>
@@ -17,7 +20,17 @@ const Header = () => {
                 </section>
 
                 <section className='login-section'>
-                    <Link to='/login'>Login</Link>
+                    {user ? (
+                        <div>
+                            <p>Hello {user.user_id}</p>
+                            <button onClick={logoutUser}>Logout</button>
+                        </div>
+
+                    ):
+                    (
+                        <Link to='/login'>Login</Link>
+                    )}
+                    
                 </section>
             </nav>
         </header>

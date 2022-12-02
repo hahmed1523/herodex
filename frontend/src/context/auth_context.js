@@ -1,4 +1,6 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState } from "react";
+import { useNavigate } from 'react-router-dom';
+import jwt_decode from 'jwt-decode';
 
 const AuthContext = createContext();
 
@@ -6,22 +8,47 @@ export default AuthContext;
 
 export const AuthProvider = ({children}) => {
 
-    let [authTokens, setAuthTokens] = useState(null);
-    let [user, setUser] = useState(null);
+    let navigate = useNavigate();
+
+    let [authTokens, setAuthTokens] = useState( () =>
+        localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : null
+    );
+    let [user, setUser] = useState( () =>
+        localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')).access : null);
 
     const loginUser = async (e) => {
         e.preventDefault();
-        let response = fetch('/api/token/', {
+        let response = await fetch('/api/token/', {
             method:'POST',
             headers: {
                 'Content-Type':'application/json'
             },
             body: JSON.stringify({'username': e.target.username.value, 'password': e.target.password.value})
         });
+
+        const data = await response.json();
+
+        if(response.status === 200){
+            setAuthTokens(data);
+            setUser(jwt_decode(data.access));
+            localStorage.setItem('authTokens', JSON.stringify(data));
+            navigate('/');
+        } else {
+            //
+        }
     };
 
+    const logoutUser = () => {
+        setAuthTokens(null);
+        setUser(null);
+        localStorage.removeItem('authTokens');
+        navigate('/login');
+    }
+
     const contextData = {
-        loginUser:loginUser
+        loginUser:loginUser,
+        logoutUser:logoutUser,
+        user:user
     };
 
     return(
