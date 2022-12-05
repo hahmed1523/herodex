@@ -1,9 +1,12 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from ..models.hero_likes import HeroLike
 from ..serializers.hero_likes_serializer import HeroLikeSerializer
 
 class HeroLikesView(APIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
     def get(self, request, pk=None, format=None):
         # Handle single request
         if pk:

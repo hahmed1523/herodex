@@ -1,13 +1,16 @@
 from django.shortcuts import render 
 from rest_framework.response import Response 
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes 
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from ..models.hero_model import Hero
 from ..serializers.hero_serializer import HeroSerializer, HeroSerializerCreate
 from django.db.models import Count 
 
+
 # Create your views here.
 
 @api_view(['GET', 'PUT', 'POST', 'DELETE'])
+@permission_classes([IsAuthenticatedOrReadOnly])
 def getHeroes(request, pk=None):
 
     # Handle GET request

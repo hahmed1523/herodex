@@ -1,9 +1,11 @@
 from rest_framework.response import Response 
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes 
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from ..models.hero_from import HeroFrom
 from ..serializers.hero_from_serializer import HeroFromSerializer
 
 @api_view(['GET', 'POST', 'PUT', 'DELETE'])
+@permission_classes([IsAuthenticatedOrReadOnly])
 def getHeroFrom(request, pk=None):
 
     # Handle GET request

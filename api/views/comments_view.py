@@ -1,9 +1,12 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from ..models.comments import Comment
 from ..serializers.comments_serializer import CommentSerializer
 
 class CommentsView(APIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
     def get(self, request, pk=None, hero_id=None, format=None):
         # Handle single request
         if pk:

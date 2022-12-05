@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 
@@ -15,6 +15,20 @@ export const AuthProvider = ({children}) => {
     );
     let [user, setUser] = useState( () =>
         localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')).access : null);
+
+    let [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+
+        const fourMinutes = 1000 * 60 * 4;
+        let interval = setInterval(() => {
+            if (authTokens){
+                updateToken();
+            }
+        }, fourMinutes);
+        return () => clearInterval(interval);
+
+    }, [authTokens, loading]);
 
     const loginUser = async (e) => {
         e.preventDefault();
@@ -37,6 +51,26 @@ export const AuthProvider = ({children}) => {
             //
         }
     };
+
+    const updateToken = async () => {
+        const response = await fetch('/api/token/refresh/',{
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify({'refresh': authTokens.refresh})
+        });
+
+        const data = await response.json();
+
+        if (response.status === 200){
+            setAuthTokens(data);
+            setUser(jwt_decode(data.access));
+            localStorage.setItem('authTokens', JSON.stringify(data));
+        } else {
+            logoutUser();
+        }
+    }
 
     const logoutUser = () => {
         setAuthTokens(null);
