@@ -1,9 +1,12 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import { useParams, Link, useNavigate, Routes, Route } from 'react-router-dom';
 import CommentIndexPage from '../comments/commentsIndex';
 import CreateCommentsPage from '../comments/createComments';
+import AuthContext from '../../context/auth_context';
 
 const HeroPage = () => {
+
+    let {authTokens, logoutUser} = useContext(AuthContext);
 
     let navigate = useNavigate();
 
@@ -26,7 +29,8 @@ const HeroPage = () => {
         const response = await fetch(`/api/heroes/${heroId}/`,{
             method: "DELETE",
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + String(authTokens.access)
             },
 
         });

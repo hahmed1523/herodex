@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
+import AuthContext from '../../context/auth_context';
 
 const CreateHeroPage = () => {
+
+    let {authTokens, logoutUser} = useContext(AuthContext);
 
     let navigate = useNavigate();
 
@@ -61,7 +64,8 @@ const CreateHeroPage = () => {
             response = await fetch(`/api/heroes/${heroId}/`,{
                 method: "PUT",
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + String(authTokens.access)
                 },
                 body: JSON.stringify(hero)
             });
@@ -69,7 +73,8 @@ const CreateHeroPage = () => {
             response = await fetch('/api/heroes/',{
                 method: "POST",
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + String(authTokens.access)
                 },
                 body: JSON.stringify(hero)
             });
@@ -80,6 +85,8 @@ const CreateHeroPage = () => {
         if(response.status !== 200){
             setErrors(data);
 
+        } else if(response.statusText === 'Unauthorized'){
+            logoutUser();
         } else {
             navigate('/');
         }

@@ -58,7 +58,7 @@ export const AuthProvider = ({children}) => {
             headers:{
                 'Content-Type': 'application/json'
             },
-            body:JSON.stringify({'refresh': authTokens.refresh})
+            body:JSON.stringify({'refresh': authTokens?.refresh})
         });
 
         const data = await response.json();
@@ -70,7 +70,21 @@ export const AuthProvider = ({children}) => {
         } else {
             logoutUser();
         }
+
+        if(loading){
+            setLoading(false);
+        }
+
+        
     }
+
+    useEffect(() => {
+        if(user && loading){
+            updateToken();
+        } else {
+            setLoading(false);
+        };
+    });
 
     const logoutUser = () => {
         setAuthTokens(null);
@@ -82,12 +96,13 @@ export const AuthProvider = ({children}) => {
     const contextData = {
         loginUser:loginUser,
         logoutUser:logoutUser,
-        user:user
+        user:user,
+        authTokens:authTokens
     };
 
     return(
         <AuthContext.Provider value={contextData}>
-            {children}
+            {loading ? null : children}
         </AuthContext.Provider>
     );
 };
