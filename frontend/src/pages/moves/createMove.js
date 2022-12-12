@@ -1,7 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import AuthContext from '../../context/auth_context';
 
 const CreateMovePage = () => {
+
+    let {user, authTokens, logoutUser} = useContext(AuthContext);
+
     const navigate = useNavigate();
 
     const moveId = useParams().id;
@@ -9,7 +13,7 @@ const CreateMovePage = () => {
     let [move, setMove] = useState({
         'id': null,
         'name': '',
-        'user': 1
+        'user': user ? user.id : null
     });
 
     let [errors, setErrors] = useState([]);
@@ -45,7 +49,8 @@ const CreateMovePage = () => {
             response = await fetch(`/api/moves/${moveId}/`,{
                 method: "PUT",
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + String(authTokens.access)
                 },
                 body: JSON.stringify(move)
             });
@@ -53,7 +58,8 @@ const CreateMovePage = () => {
             response = await fetch('/api/moves/',{
                 method: "POST",
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + String(authTokens.access)
                 },
                 body: JSON.stringify(move)
             });
@@ -64,6 +70,8 @@ const CreateMovePage = () => {
         if(response.status !== 200){
             setErrors(data);
 
+        } else if(response.statusText === 'Unauthorized'){
+            logoutUser();
         } else {
             navigate(-1);
         }

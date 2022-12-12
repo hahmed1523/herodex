@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
+import AuthContext from '../../context/auth_context';
 
 const CreateCommentsPage = ({heroId, setComments, comments}) => {
+    let {user, authTokens, logoutUser} = useContext(AuthContext);
+
     let navigate = useNavigate();
 
     const commentId = useParams().comment_id;
@@ -9,7 +12,7 @@ const CreateCommentsPage = ({heroId, setComments, comments}) => {
     let [comment, setComment] = useState({
         'body': '',
         'hero': heroId,
-        'user': 1
+        'user': user ? user.id : null
     });
 
     let [errors, setErrors] = useState([]);
@@ -46,7 +49,8 @@ const CreateCommentsPage = ({heroId, setComments, comments}) => {
             response = await fetch(`/api/comments/${commentId}/`,{
                 method: "PUT",
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + String(authTokens?.access)
                 },
                 body: JSON.stringify(comment)
             });
@@ -54,13 +58,19 @@ const CreateCommentsPage = ({heroId, setComments, comments}) => {
             response = await fetch('/api/comments/',{
                 method: "POST",
                 headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + String(authTokens?.access)
                 },
                 body: JSON.stringify(comment)
             });
         }
         
         const data = await response.json();
+        
+        if(response.statusText === 'Unauthorized'){
+            
+            logoutUser();
+        };
 
         if(response.status !== 200){
             setErrors(data);

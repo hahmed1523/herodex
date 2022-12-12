@@ -1,7 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
+import AuthContext from '../../context/auth_context';
 
 const MovePage = () => {
+
+    let {authTokens, logoutUser} = useContext(AuthContext);
 
     let navigate = useNavigate();
 
@@ -23,7 +26,8 @@ const MovePage = () => {
         const response = await fetch(`/api/moves/${moveId}/`,{
             method: "DELETE",
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + String(authTokens.access)
             },
 
         });

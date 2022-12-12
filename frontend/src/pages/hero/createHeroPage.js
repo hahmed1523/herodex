@@ -4,7 +4,7 @@ import AuthContext from '../../context/auth_context';
 
 const CreateHeroPage = () => {
 
-    let {authTokens, logoutUser} = useContext(AuthContext);
+    let {user, authTokens, logoutUser} = useContext(AuthContext);
 
     let navigate = useNavigate();
 
@@ -20,7 +20,7 @@ const CreateHeroPage = () => {
         'move1': '',
         'move2_id':'',
         'move2': '',
-        'user': 1
+        'user': user ? user.id : null
     });
 
     let [errors, setErrors] = useState([]);

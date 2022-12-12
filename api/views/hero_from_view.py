@@ -25,9 +25,6 @@ def getHeroFrom(request, pk=None):
     elif request.method == 'POST':
         data = request.data
         serializer = HeroFromSerializer(data = data, many=False)
-        print(data)
-        print(serializer.is_valid())
-        print(serializer.errors)
         
         if serializer.is_valid():
             serializer.save()
