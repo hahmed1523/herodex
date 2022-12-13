@@ -12,7 +12,7 @@ const CreateCommentsPage = ({heroId, setComments, comments}) => {
     let [comment, setComment] = useState({
         'body': '',
         'hero': heroId,
-        'user': user ? user.id : null
+        'user': user ? user.user_id : null
     });
 
     let [errors, setErrors] = useState([]);
@@ -100,6 +100,7 @@ const CreateCommentsPage = ({heroId, setComments, comments}) => {
     return(
         <div>
             <h3>Add a comment</h3>
+            {console.log(comment)}
 
             {errors ? <ul className='errors'>{Object.entries(errors).map((entry, idx) => {
                 return(

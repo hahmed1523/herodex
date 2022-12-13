@@ -15,7 +15,7 @@ const CreateHeroFromPage = () => {
         'name': '',
         'origin_date': null,
         'created_by': '',
-        'user': user ? user.id : null
+        'user': user ? user.user_id : null
     });
 
     let [errors, setErrors] = useState([]);

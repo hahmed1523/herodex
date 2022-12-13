@@ -13,7 +13,7 @@ const CreateMovePage = () => {
     let [move, setMove] = useState({
         'id': null,
         'name': '',
-        'user': user ? user.id : null
+        'user': user ? user.user_id : null
     });
 
     let [errors, setErrors] = useState([]);

@@ -20,7 +20,7 @@ const CreateHeroPage = () => {
         'move1': '',
         'move2_id':'',
         'move2': '',
-        'user': user ? user.id : null
+        'user': user ? user.user_id : null
     });
 
     let [errors, setErrors] = useState([]);
