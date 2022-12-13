@@ -4,7 +4,7 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 from . import view
-from .views import heroes_view, hero_from_view, moves_view, comments_view, hero_likes_view
+from .views import heroes_view, hero_from_view, moves_view, comments_view, hero_likes_view, user_register_view
 
 urlpatterns = [ 
     path('', view.getRoutes),
@@ -20,6 +20,7 @@ urlpatterns = [
     path('comments/<str:pk>/', comments_view.CommentsView.as_view(), name="comments"), 
     path('heroes/<str:hero_id>/comments/', comments_view.CommentsView.as_view(), name="hero_comments"),
     path('hero_likes', hero_likes_view.HeroLikesView.as_view(), name="hero_likes" ),
-    path('hero_likes/<str:pk>', hero_likes_view.HeroLikesView.as_view(), name="hero_like" )
+    path('hero_likes/<str:pk>', hero_likes_view.HeroLikesView.as_view(), name="hero_like" ),
+    path('register/', user_register_view.RegisterView.as_view(), name="register")
 
 ]
