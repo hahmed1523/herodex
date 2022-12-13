@@ -28,7 +28,11 @@ const Header = () => {
 
                     ):
                     (
-                        <Link to='/login'>Login</Link>
+                        <div className='header-links'>
+                            <Link to='/login'>Login</Link>
+                            <Link to='/register'>Register</Link>
+                        </div>
+                        
                     )}
                     
                 </section>

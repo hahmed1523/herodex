@@ -13,7 +13,9 @@ import CreateMovePage from './pages/moves/createMove.js';
 import CreateCommentsPage from './pages/comments/createComments.js';
 import DeleteCommentPage from './pages/comments/deleteComment.js';
 import LoginPage from './pages/login_reg/login.js';
+import RegisterPage from './pages/login_reg/register.js';
 import PrivateRoutes from './utils/private_routes.js';
+import RegisterRoutes from './utils/reg_route.js';
 import { AuthProvider } from './context/auth_context.js';
 
 function App() {
@@ -39,6 +41,10 @@ function App() {
               <Route path='/moves/update/:id' element={<CreateMovePage />} />
               <Route path='/comments/update/:comment_id' element={<CreateCommentsPage />} />
               <Route path='/comments/delete/:comment_id' element={<DeleteCommentPage />} />
+            </Route>
+
+            <Route element={<RegisterRoutes />}>
+              <Route path='/register' element={<RegisterPage />} />
             </Route>
             
 
