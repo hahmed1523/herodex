@@ -21,6 +21,7 @@ urlpatterns = [
     path('heroes/<str:hero_id>/comments/', comments_view.CommentsView.as_view(), name="hero_comments"),
     path('hero_likes', hero_likes_view.HeroLikesView.as_view(), name="hero_likes" ),
     path('hero_likes/<str:pk>', hero_likes_view.HeroLikesView.as_view(), name="hero_like" ),
-    path('register/', user_register_view.RegisterView.as_view(), name="register")
+    path('register/', user_register_view.RegisterView.as_view(), name="register"),
+    path('register/<str:pk>', user_register_view.RegisterView.as_view(), name="register_single")
 
 ]

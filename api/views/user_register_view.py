@@ -4,7 +4,14 @@ from django.contrib.auth.models import User
 from ..serializers.user_register_serializer import RegisterSerializer
 
 class RegisterView(APIView):
-    def get(self, request, format=None):
+    def get(self, request, pk=None,format=None):
+        # Handle single request
+        if pk: 
+            user = User.objects.get(id=pk)
+            serializer = RegisterSerializer(user, many=False)
+            return Response(serializer.data)
+        else:
+            # Handle general request
             users = User.objects.all()
             serializer = RegisterSerializer(users, many=True)
             return Response(serializer.data)
@@ -18,3 +25,8 @@ class RegisterView(APIView):
             return Response(serializer.data)
         else:
             return Response(serializer.errors)
+    
+    def delete(self, request, pk, format=None):
+        user = User.objects.get(id=pk)
+        user.delete()
+        return Response('User is deleted')
