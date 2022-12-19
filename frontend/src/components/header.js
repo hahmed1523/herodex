@@ -22,7 +22,7 @@ const Header = () => {
                 <section className='login-section'>
                     {user ? (
                         <div>
-                            <p>Hello {user.user_id}</p>
+                            <p>Hello {user.username}</p>
                             <button onClick={logoutUser}>Logout</button>
                         </div>
 
