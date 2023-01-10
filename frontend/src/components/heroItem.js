@@ -14,6 +14,7 @@ const HeroItem = ({hero}) => {
             </Link>
             <p>{ hero.famous_from }</p>
             <p>Likes: { hero.likes }</p>
+            {console.log(hero)}
         </li>
     );
 };

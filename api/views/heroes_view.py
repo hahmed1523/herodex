@@ -19,7 +19,9 @@ def getHeroes(request, pk=None):
         # Handle GET single Hero   
         if pk:
             hero = Hero.objects.get(id=pk)
-            serializer = HeroSerializer(hero, many=False)
+            serializer = HeroSerializer(hero, many=False, context={'request': request})
+            
+            print(request.user.is_authenticated)
             return Response(serializer.data)
 
         # Handle general GET

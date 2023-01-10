@@ -20,9 +20,11 @@ class HeroSerializer(ModelSerializer):
 
     # Use this method for the custom field. Eventually make this to check if current user liked the hero.
     def _user(self, obj):
-        request = self.context.get('request', None)
-        if request:
-            return request.user
+        return "hello"
+        # request = self.context.get('request', None)
+        # return request.user 
+        # if request:
+        #     return "hello"
 
     class Meta:
         model = Hero 
