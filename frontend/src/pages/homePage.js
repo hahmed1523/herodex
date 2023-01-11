@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import HeroItem from '../components/heroItem';
+import AuthContext from '../context/auth_context';
 
 
 const HomePage = () => {
+
+    let {authTokens} = useContext(AuthContext);
 
     let [heroes, setHeroes] = useState([]);
 
@@ -12,7 +15,13 @@ const HomePage = () => {
     }, [])
 
     const getHeroes = async () => {
-        const response = await fetch('/api/heroes/');
+        const response = await fetch('/api/heroes/',{
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + String(authTokens.access)
+            },
+        });
         const data = await response.json();
         setHeroes(data);
     }
