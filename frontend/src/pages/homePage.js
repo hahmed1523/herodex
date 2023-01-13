@@ -15,13 +15,19 @@ const HomePage = () => {
     }, [])
 
     const getHeroes = async () => {
-        const response = await fetch('/api/heroes/',{
-            method: "GET",
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + String(authTokens.access)
-            },
-        });
+        let response = null;
+        if (authTokens){
+            response = await fetch('/api/heroes/',{
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + String(authTokens.access)
+                 },
+            });
+        } else {
+            response = await fetch('/api/heroes/')
+        }
+
         const data = await response.json();
         setHeroes(data);
     }
@@ -35,7 +41,7 @@ const HomePage = () => {
             <ul className='hero-list'>
                 {
                     heroes.map((hero, index) => (
-                        <HeroItem key={index} hero={hero} />
+                        <HeroItem key={index} hero={hero}  authTokens={authTokens}/>
                     ))
                 }
             </ul>

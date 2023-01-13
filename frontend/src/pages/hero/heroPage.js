@@ -20,13 +20,19 @@ const HeroPage = () => {
     }, [heroId])
 
     const getHero = async () => {
-        const response = await fetch(`/api/heroes/${heroId}`,{
-            method: "GET",
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + String(authTokens.access)
-            },
-        });
+        let response = null;
+        if (authTokens) {
+            response = await fetch(`/api/heroes/${heroId}`,{
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + String(authTokens.access)
+                },
+            });
+        } else {
+            response = await fetch(`/api/heroes/${heroId}`);
+        }
+        
         const data = await response.json();
         setHero(data);
     }
