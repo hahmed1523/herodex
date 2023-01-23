@@ -21,7 +21,6 @@ class HeroLikesView(APIView):
 
     def post(self, request, format=None):
         data = request.data
-
         serializer = HeroLikeSerializer(data = data, many=False)
         if serializer.is_valid():
             serializer.save()
@@ -29,8 +28,10 @@ class HeroLikesView(APIView):
         else:
             return Response(serializer.errors)
     
-    def delete(self, request, pk, format=None):
-        like = HeroLike.objects.get(id=pk)
+    def delete(self, request, format=None):
+        data = request.data
+        like = HeroLike.objects.get(user_id=data['user'],
+                                    hero_id=data['hero'])
         like.delete()
         return Response('Hero Like is deleted')
 

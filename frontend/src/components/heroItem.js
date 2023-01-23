@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-const HeroItem = ({hero, authTokens}) => {
+const HeroItem = ({hero, user,authTokens, getHeroes}) => {
 
     const navigate = useNavigate();
 
@@ -17,7 +17,12 @@ const HeroItem = ({hero, authTokens}) => {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + String(authTokens.access)
                  },
+                 body: JSON.stringify({
+                    'hero': hero.id,
+                    'user': user.user_id
+                 })
             });
+            getHeroes();
         } else {
             response = await fetch('/api/hero_likes/',{
                 method: "POST",
@@ -25,11 +30,17 @@ const HeroItem = ({hero, authTokens}) => {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + String(authTokens.access)
                  },
+                 body: JSON.stringify({
+                    'hero': hero.id,
+                    'user': user.user_id
+                 })
             });
+            getHeroes();
         }
 
         const data = await response.json();
-        // console.log(data);
+        
+        
     };
 
     return (

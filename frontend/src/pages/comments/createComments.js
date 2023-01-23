@@ -100,7 +100,6 @@ const CreateCommentsPage = ({heroId, setComments, comments}) => {
     return(
         <div>
             <h3>Add a comment</h3>
-            {console.log(comment)}
 
             {errors ? <ul className='errors'>{Object.entries(errors).map((entry, idx) => {
                 return(

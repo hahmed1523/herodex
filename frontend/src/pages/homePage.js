@@ -6,7 +6,7 @@ import AuthContext from '../context/auth_context';
 
 const HomePage = () => {
 
-    let {authTokens} = useContext(AuthContext);
+    let {user, authTokens} = useContext(AuthContext);
 
     let [heroes, setHeroes] = useState([]);
 
@@ -41,7 +41,11 @@ const HomePage = () => {
             <ul className='hero-list'>
                 {
                     heroes.map((hero, index) => (
-                        <HeroItem key={index} hero={hero}  authTokens={authTokens}/>
+                        <HeroItem key={index} 
+                                    hero={hero}  
+                                    authTokens={authTokens} 
+                                    user={user}
+                                    getHeroes={getHeroes}/>
                     ))
                 }
             </ul>

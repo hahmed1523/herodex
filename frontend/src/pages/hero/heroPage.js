@@ -66,7 +66,7 @@ const HeroPage = () => {
             <button className='delete-btn' onClick={handleDelete}>Delete</button>
             
             <CommentIndexPage heroId={heroId} />
-            {console.log(hero)}
+            
 
         </div>
     );
