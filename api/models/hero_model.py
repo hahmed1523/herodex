@@ -3,6 +3,9 @@ from django.contrib.auth.models import User
 from .hero_from import HeroFrom
 from .moves import Move
 
+def upload_to(instance, filename):
+    return f'images/{filename}'
+
 class Hero(models.Model):
     name = models.CharField(max_length=200, null=False, blank=False)
     famous_from = models.ForeignKey(
@@ -32,8 +35,10 @@ class Hero(models.Model):
         related_name='heroes',
         null=True
     )
+    image_url = models.ImageField(upload_to=upload_to, blank=True, null=True)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
+
 
     def __str__(self):
         return self.name
