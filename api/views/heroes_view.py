@@ -1,16 +1,18 @@
 from django.shortcuts import render 
 from rest_framework.views import APIView
 from rest_framework.response import Response 
-from rest_framework.decorators import api_view, permission_classes, authentication_classes 
+from rest_framework.decorators import api_view, permission_classes, authentication_classes, parser_classes
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from ..models.hero_model import Hero
 from ..serializers.hero_serializer import HeroSerializer, HeroSerializerCreate
 from django.db.models import Count 
 from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.parsers import MultiPartParser, FormParser
 
 @api_view(['GET', 'PUT', 'POST', 'DELETE'])
 @authentication_classes ([JWTAuthentication])
 @permission_classes([IsAuthenticatedOrReadOnly])
+@parser_classes([MultiPartParser, FormParser])
 def getHeroes(request, pk=None):
 
     # Handle GET request
