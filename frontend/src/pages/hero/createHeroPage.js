@@ -20,6 +20,7 @@ const CreateHeroPage = () => {
         'move1': '',
         'move2_id':'',
         'move2': '',
+        'image_url': '',
         'user': user ? user.user_id : null
     });
 
@@ -50,16 +51,48 @@ const CreateHeroPage = () => {
 
     const update = field => {
         const name = field;
-        return e => setHero({
-            ...hero,
-            [name]: e.target.value
-        })
+        if (name === 'image_url'){
+            return e => setHero({
+                ...hero,
+                [name]: e.target.files[0]
+            })
+        } else {
+            return e => setHero({
+                ...hero,
+                [name]: e.target.value
+            })
+        }
+
     };
+
+    const createFormData = data => {
+        let form_data = new FormData();
+
+        if (data.image_url){
+            form_data.append("image_url", data.image_url, data.image_url.name)
+        }
+        form_data.append("name", data.name);
+        form_data.append("description", data.description);
+        form_data.append("famous_from_id", data.famous_from_id);
+        form_data.append("famous_from", data.famous_from);
+        form_data.append("move1_id", data.move1_id);
+        form_data.append("move1", data.move1);
+        form_data.append("move2_id", data.move2_id);
+        form_data.append("move2", data.move2);
+        form_data.append("user", data.user);
+
+        return form_data;
+    }
 
     const handleSubmit = async (e) => {
 
         e.preventDefault();
         let response = null;
+        let f_data = createFormData(hero);
+        f_data.forEach((value,key) => {
+            console.log(value,key);
+        })
+        return;
         if (heroId){
             response = await fetch(`/api/heroes/${heroId}/`,{
                 method: "PUT",
@@ -176,9 +209,15 @@ const CreateHeroPage = () => {
 
                 <Link className="moves-link" to={'/moves/create'}>Add a new move..</Link>
 
+                <label htmlFor="name">Image:</label>
+                <input type='file' 
+                    name='image_url' 
+                    onChange={update('image_url')}/>
+
                 <input type='submit' value={heroId ? "Update" : "Add"}/>
 
             </form>
+
 
         </div>
     );
